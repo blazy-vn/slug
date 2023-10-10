@@ -36,7 +36,7 @@ var (
 	// Default is true.
 	Lowercase = true
 
-	Seperator = "-"
+	Seperator = "_"
 
 	regexpNonAuthorizedChars = regexp.MustCompile("[^a-zA-Z0-9-_]")
 	regexpMultipleDashes     = regexp.MustCompile("-+")
@@ -170,7 +170,7 @@ func smartTruncate(text string) string {
 	// we cut there.
 	// If we don't find any, we have only one word, and we cut at MaxLength.
 	for i := MaxLength; i >= 0; i-- {
-		if text[i] == Seperator {
+		if text[i] == Seperator[0]  {
 			return text[:i]
 		}
 	}
