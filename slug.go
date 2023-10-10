@@ -36,6 +36,8 @@ var (
 	// Default is true.
 	Lowercase = true
 
+	Seperator = "-"
+
 	regexpNonAuthorizedChars = regexp.MustCompile("[^a-zA-Z0-9-_]")
 	regexpMultipleDashes     = regexp.MustCompile("-+")
 )
@@ -117,8 +119,8 @@ func MakeLang(s string, lang string) (slug string) {
 	}
 
 	// Process all remaining symbols
-	slug = regexpNonAuthorizedChars.ReplaceAllString(slug, "-")
-	slug = regexpMultipleDashes.ReplaceAllString(slug, "-")
+	slug = regexpNonAuthorizedChars.ReplaceAllString(slug, Seperator)
+	slug = regexpMultipleDashes.ReplaceAllString(slug, Seperator)
 	slug = strings.Trim(slug, "-_")
 
 	if MaxLength > 0 && EnableSmartTruncate {
@@ -168,7 +170,7 @@ func smartTruncate(text string) string {
 	// we cut there.
 	// If we don't find any, we have only one word, and we cut at MaxLength.
 	for i := MaxLength; i >= 0; i-- {
-		if text[i] == '-' {
+		if text[i] == Seperator {
 			return text[:i]
 		}
 	}
